@@ -1,0 +1,2 @@
+class PerfectoController < ApplicationController
+end
