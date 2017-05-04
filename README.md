@@ -2,4 +2,5 @@
 
 # Overview
 
-Messing around with continuous integration.
+Test-driven development, code coverage, and continuous integration for Rails.
+
