@@ -13,8 +13,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -36,6 +34,7 @@ group :development, :test do
   gem 'rb-readline' #added 5/6/2017 dps
   gem 'guard' #added 5/6/2017 dps
   gem 'guard-minitest' #added 5/6/2017 dps
+  gem 'therubyracer', platforms: :ruby
 end
 
 group :development do
