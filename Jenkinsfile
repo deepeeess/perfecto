@@ -12,6 +12,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh 'bundle install'
                 sh 'rake test'
             }
         }
