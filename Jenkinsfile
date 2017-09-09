@@ -1,6 +1,7 @@
 pipeline {
-    agent any
-
+    agent {
+        docker { image 'ruby:2.3.4-onbuild' }
+    }
     stages {
         stage('Build') {
             steps {
