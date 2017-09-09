@@ -5,14 +5,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo 'Building..'
                 sh 'uname -a'
                 sh 'ruby --version'
-                echo 'Building..'
+                sh 'bundle install'
+                echo 'Finished building..'
             }
         }
         stage('Test') {
             steps {
-                sh 'bundle install'
                 sh 'rake test'
             }
         }
