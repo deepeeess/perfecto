@@ -20,6 +20,12 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                if (currentBuild.result == 'SUCCESS') { 
+                  echo 'Build success.'
+                }
+                else {
+                  echo 'Build failure.'
+                }
             }
         }
     }
