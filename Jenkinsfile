@@ -3,7 +3,7 @@ node {
     docker.image('ruby:2.3.4-onbuild').inside {
         stage('Build') {
             echo "Build stage, env:"
-            #dump the environment
+            //dump the environment
             echo sh(returnStdout: true, script: 'env')
             echo "My branch is: ${env.BRANCH_NAME}"
             sh 'uname -a'
