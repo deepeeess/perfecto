@@ -1,3 +1,4 @@
+properties([gitLabConnection('deepeeess-gitlab')])
 node {
     
     docker.image('ruby:2.3.4-onbuild').inside {
