@@ -2,6 +2,7 @@ properties([gitLabConnection('deepeeess-gitlab')])
 node {
     
     docker.image('ruby:2.3.4-onbuild').inside {
+        checkout scm
         stage('Build') {
             echo "Build stage, env:"
             //dump the environment
