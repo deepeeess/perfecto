@@ -1,6 +1,6 @@
+#!/usr/bin/env groovy
 node {
-    
-    docker.image('ruby:2.3.4-onbuild').inside {
+    docker.image('ruby:2.3.4').inside {
         checkout scm
         stage('Build') {
             echo "Build stage, env:"
