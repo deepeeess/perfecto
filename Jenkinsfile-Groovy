@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 properties([gitLabConnection('deepeeess-gitlab')])
 node {
-  stage("checkout") {
+  stage('\u2776 checkout') {
     checkout scm
   }
 
