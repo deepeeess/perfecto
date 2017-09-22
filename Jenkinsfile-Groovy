@@ -1,0 +1,16 @@
+#!/usr/bin/env groovy
+properties([gitLabConnection('deepeeess-gitlab')])
+node {
+    stage "checkout"
+    checkout scm
+
+    stage "build"
+    gitlabCommitStatus("build") {
+        // your build steps
+    }
+
+    stage "test"
+    gitlabCommitStatus("test") {
+        // your test steps
+    }
+}
