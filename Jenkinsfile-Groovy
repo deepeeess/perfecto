@@ -7,7 +7,7 @@ node {
 
   stage("build") {
     gitlabCommitStatus("build") {
-      // your build steps
+      echo "\u2600 BUILD_URL=${env.BUILD_URL}"
     }
   }
 
