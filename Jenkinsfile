@@ -1,29 +1,24 @@
-properties([gitLabConnection('deepeeess-gitlab')])
-node {
-    
-    docker.image('ruby:2.3.4-onbuild').inside {
-        checkout scm
-        stage('Build') {
-            echo "Build stage, env:"
-            //dump the environment
-            echo sh(returnStdout: true, script: 'env')
-            echo "My branch is: ${env.BRANCH_NAME}"
-            sh 'uname -a'
-            sh 'ruby --version'
-            sh 'bundle install'
-            echo 'Finished building..'
+pipeline {
+    agent any
+    post {
+      failure {
+        updateGitlabCommitStatus name: 'build', state: 'failed'
+      }
+      success {
+        updateGitlabCommitStatus name: 'build', state: 'success'
+      }
+    }
+    options {
+      gitLabConnection('deepeeess-gitlab')
+    }
+    triggers {
+        gitlab(triggerOnPush: true, triggerOnMergeRequest: true, branchFilterType: 'All')
+    }
+    stages {
+      stage("build") {
+        steps {
+          echo "hello world"
         }
-        
-        stage('Example') {
-            if (env.BRANCH_NAME == 'master') {
-                echo 'I only execute on the master branch'
-            } else {
-                echo 'I execute elsewhere'
-            }
-        }
-        
-        stage('Deploy') {
-            echo "Deploy stage"
-        }
+      }
     }
 }
