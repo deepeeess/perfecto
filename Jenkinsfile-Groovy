@@ -3,6 +3,7 @@ properties([gitLabConnection('deepeeess-gitlab')])
 node {
   docker.image('ruby:2.3.4').inside {
     stage('\u2776 init') {
+      echo "\u273F environment"
       echo sh(returnStdout: true, script: 'env')
     }
 
