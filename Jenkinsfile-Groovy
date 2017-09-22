@@ -10,6 +10,8 @@ node {
       checkout scm
       echo "\u273F git status"
       sh 'git status'
+      echo "\u273F git branch"
+      sh 'git branch'
     }
 
     stage("build") {
