@@ -6,7 +6,7 @@ node {
       echo "\u273F environment"
       echo sh(returnStdout: true, script: 'env')
       echo "\u273F gitlab environment:"
-      echo sh(returnStdout: true, script: "env | grep '^1'")
+      sh "env | grep '^gitlab'"
       echo "\u273F uname -a"
       sh 'uname -a'
     }
