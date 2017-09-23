@@ -1,45 +1,43 @@
 #!/usr/bin/env groovy
 properties([gitLabConnection('deepeeess-gitlab')])
 node {
-  docker.image('ruby:2.3.4').inside {
-    stage('\u2776 init') {
-      echo "\u273F environment"
-      echo sh(returnStdout: true, script: 'env')
-      echo "\u273F gitlab environment:"
-      sh "env | grep '^gitlab'"
-      echo "\u273F uname -a"
-      sh 'uname -a'
-      tokens = "${env.JOB_NAME}".tokenize('/')
-      org = tokens[0]
-      repo = tokens[1]
-      branch = tokens[2]
-      echo "\u273F account-org/repo/branch"
-      echo 'account-org/repo/branch=' + org +'/'+ repo +'/'+ branch
-    }
+  stage('\u2776 init') {
+    echo "\u273F environment"
+    echo sh(returnStdout: true, script: 'env')
+    echo "\u273F gitlab environment:"
+    sh "env | grep '^gitlab'"
+    echo "\u273F uname -a"
+    sh 'uname -a'
+    tokens = "${env.JOB_NAME}".tokenize('/')
+    org = tokens[0]
+    repo = tokens[1]
+    branch = tokens[2]
+    echo "\u273F account-org/repo/branch"
+    echo 'account-org/repo/branch=' + org +'/'+ repo +'/'+ branch
+  }
 
-    stage('\u2777 checkout') {
-      checkout scm
-      echo "\u273F git status"
-      sh 'git status'
-      echo "\u273F git branch"
-      sh 'git branch'
-    }
+  stage('\u2777 checkout') {
+    checkout scm
+    echo "\u273F git status"
+    sh 'git status'
+    echo "\u273F git branch"
+    sh 'git branch'
+  }
 
-    stage("build-docker-image") {
-      gitlabCommitStatus("build-docker-image") {
-        echo "\u2600 BUILD_URL=${env.BUILD_URL}"
-        echo "\u2600 JOB_NAME=${env.JOB_NAME}"
-        app = docker.build("devopsrockstars/perfecto")
-      }
-    }
-
-    stage("test") {
-      gitlabCommitStatus("test") {
-        // your test steps
-      }
-    }
-    stage("containerize") {
-
+  stage("build-docker-image") {
+    gitlabCommitStatus("build-docker-image") {
+      echo "\u2600 BUILD_URL=${env.BUILD_URL}"
+      echo "\u2600 JOB_NAME=${env.JOB_NAME}"
+      app = docker.build("devopsrockstars/perfecto")
     }
   }
+
+  stage("test-docker-image") {
+    gitlabCommitStatus("test") {
+      app.inside {
+        sh 'echo "Tests passed"'
+      }
+    }
+  }
+
 }
