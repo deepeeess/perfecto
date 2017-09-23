@@ -25,10 +25,11 @@ node {
       sh 'git branch'
     }
 
-    stage("build") {
-      gitlabCommitStatus("build") {
+    stage("build-docker-image") {
+      gitlabCommitStatus("build-docker-image") {
         echo "\u2600 BUILD_URL=${env.BUILD_URL}"
-        echo "\u2600 BUILD_URL=${env.JOB_NAME}"
+        echo "\u2600 JOB_NAME=${env.JOB_NAME}"
+        app = docker.build("devopsrockstars/perfecto")
       }
     }
 
