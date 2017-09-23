@@ -36,6 +36,8 @@ node {
     gitlabCommitStatus("test") {
       app.inside {
         sh 'echo "Tests passed"'
+        echo "\u273F uname -a"
+        sh 'uname -a'
       }
     }
   }
