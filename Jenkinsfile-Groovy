@@ -5,6 +5,10 @@ node {
     stage('\u2776 init') {
       echo "\u273F environment"
       echo sh(returnStdout: true, script: 'env')
+      echo "\u273F gitlab environment:"
+      echo sh(returnStdout: true, script: "env | grep '^1'")
+      echo "\u273F uname -a"
+      sh 'uname -a'
     }
 
     stage('\u2777 checkout') {
@@ -18,6 +22,7 @@ node {
     stage("build") {
       gitlabCommitStatus("build") {
         echo "\u2600 BUILD_URL=${env.BUILD_URL}"
+        echo "\u2600 BUILD_URL=${env.BUILD_URL}"
       }
     }
 
@@ -25,6 +30,9 @@ node {
       gitlabCommitStatus("test") {
         // your test steps
       }
+    }
+    stage("containerize") {
+
     }
   }
 }
