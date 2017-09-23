@@ -9,6 +9,12 @@ node {
       sh "env | grep '^gitlab'"
       echo "\u273F uname -a"
       sh 'uname -a'
+      tokens = "${env.JOB_NAME}".tokenize('/')
+      org = tokens[0]
+      repo = tokens[1]
+      branch = tokens[2]
+      echo "\u273F account-org/repo/branch"
+      echo 'account-org/repo/branch=' + org +'/'+ repo +'/'+ branch
     }
 
     stage('\u2777 checkout') {
@@ -22,7 +28,7 @@ node {
     stage("build") {
       gitlabCommitStatus("build") {
         echo "\u2600 BUILD_URL=${env.BUILD_URL}"
-        echo "\u2600 BUILD_URL=${env.BUILD_URL}"
+        echo "\u2600 BUILD_URL=${env.JOB_NAME}"
       }
     }
 
